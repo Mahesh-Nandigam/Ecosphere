@@ -42,16 +42,6 @@
 
 ---
 
-## 📸 Sneak Peek
-
-*(Add your awesome screenshots or GIFs here!)*
-
-| The Living Ecosystem | Intelligent AI Coaching |
-| :---: | :---: |
-| <img src="https://raw.githubusercontent.com/Mahesh-Nandigam/Ecosphere/main/DesignGuidelines/island-demo.gif" width="400" alt="Island Demo" /> | <img src="https://raw.githubusercontent.com/Mahesh-Nandigam/Ecosphere/main/DesignGuidelines/sage-chat.png" width="400" alt="Sage Chat" /> |
-
----
-
 ## 🛠️ Tech Stack & Architecture
 
 EcoSphere was built strictly with raw, native web technologies to ensure maximum performance, zero bloat, and long-term maintainability.
@@ -148,9 +138,9 @@ gcloud run deploy ecosphere --source . --port 80 --allow-unauthenticated
 
 ---
 
-## 🤝 Team & Acknowledgements
+## 🤝 Acknowledgements
 
-Developed by **Mahesh Nandigam** for **Challenge 3 (Prompt Wars)**. 
+Developed as a **fully vibe coded application** for **Challenge 3 (Prompt Wars)**. 
 
 Special thanks to the Google DeepMind agentic coding team for the incredible tooling!
 
