@@ -26,7 +26,6 @@ export function initSupabaseClient() {
     try {
       if (window.supabase) {
         supabaseClient = window.supabase.createClient(sbUrl, sbKey);
-        console.log('supabaseClient Client initialized successfully.');
       }
     } catch (err) {
       console.error('Failed to initialize supabaseClient client:', err);
@@ -293,7 +292,6 @@ export class PersistenceManager {
   }
 
   static async migrateLocalDataTosupabaseClient(uid) {
-    console.log('Beginning local storage migration to supabaseClient for user:', uid);
     try {
       const cachedLogs = localStorage.getItem('ecosphere_activityLogs');
       if (cachedLogs) {
@@ -357,7 +355,6 @@ export class PersistenceManager {
       localStorage.removeItem('ecosphere_activityLogs');
       localStorage.removeItem('ecosphere_challenges');
       localStorage.removeItem('ecosphere_userProfile');
-      console.log('Migration completed successfully!');
     } catch (err) {
       console.error('Migration failed:', err);
     }

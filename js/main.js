@@ -3,7 +3,6 @@ export let dynamicRecommendation = null;
 
 // EcoSphere Core Engine with supabaseClient Cloud & Local Storage Hybrid Persistence
 
-import { escapeHTML } from './utils.js';
 import { COACH_RECS } from './constants.js';
 
 import { state } from './state.js';
@@ -23,7 +22,6 @@ async function initApp() {
   if (supabaseClient) {
     supabaseClient.auth.onAuthStateChange(async (event, session) => {
       setCurrentSession(session);
-      console.log('supabaseClient Auth State Change:', event, session);
 
       if (session) {
         // Logged in
@@ -110,7 +108,7 @@ function addCoachMessage(text) {
   const msgEl = document.createElement('div');
   msgEl.className = 'chat-msg coach';
 
-  let sanitizedText = escapeHTML(text);
+  let sanitizedText = window.DOMPurify.sanitize(text);
   let formattedText = sanitizedText
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>');

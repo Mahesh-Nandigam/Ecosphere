@@ -1,6 +1,5 @@
 import { state } from './state.js';
 import { PRESETS, COACH_RECS } from './constants.js';
-import { escapeHTML } from './utils.js';
 import { supabaseClient, isSignUpMode, setSignUpMode, currentSession } from './db.js';
 import { updateSVGIsland } from './animations.js';
 import {
@@ -359,13 +358,13 @@ export function renderTimeline() {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${timeStr}</td>
-      <td><span class="timeline-category-tag tag-${escapeHTML(log.category)}">${escapeHTML(log.category)}</span></td>
-      <td><strong>${escapeHTML(log.activity)}</strong></td>
-      <td>${escapeHTML(String(log.value))} ${escapeHTML(log.unit || 'units')}</td>
+      <td><span class="timeline-category-tag tag-${window.DOMPurify.sanitize(log.category)}">${window.DOMPurify.sanitize(log.category)}</span></td>
+      <td><strong>${window.DOMPurify.sanitize(log.activity)}</strong></td>
+      <td>${window.DOMPurify.sanitize(String(log.value))} ${window.DOMPurify.sanitize(log.unit || 'units')}</td>
       <td class="val-avoided">-${log.co2Avoided.toFixed(2)} kg</td>
       <td class="val-produced">${log.co2Produced > 0 ? '+' + log.co2Produced.toFixed(2) + ' kg' : '0.0 kg'}</td>
       <td class="reward-points">+${log.pointsEarned} pts</td>
-      <td><button class="btn-danger-link" onclick="window.deleteLog('${escapeHTML(log.id)}')">Delete</button></td>
+      <td><button class="btn-danger-link" onclick="window.deleteLog('${window.DOMPurify.sanitize(log.id)}')">Delete</button></td>
     `;
     fragment.appendChild(tr);
   });
@@ -416,9 +415,9 @@ export function renderLeaderboard() {
 
     item.innerHTML = `
       <span class="leaderboard-rank">#${member.rank}</span>
-      <span class="leaderboard-avatar">${escapeHTML(member.avatar)}</span>
+      <span class="leaderboard-avatar">${window.DOMPurify.sanitize(member.avatar)}</span>
       <div class="leaderboard-info">
-        <span class="leaderboard-name">${escapeHTML(member.name)}</span>
+        <span class="leaderboard-name">${window.DOMPurify.sanitize(member.name)}</span>
         <span class="leaderboard-stats">Avoided: ${member.co2AvoidedTotal.toFixed(1)} kg CO₂</span>
       </div>
       <span class="leaderboard-score-badge">${member.ecoScore}</span>
@@ -451,19 +450,19 @@ export function renderChallenges() {
     item.innerHTML = `
       <div class="challenge-top">
         <div>
-          <span class="badge difficulty-${escapeHTML(ch.difficulty)}">${escapeHTML(ch.difficulty)}</span>
-          <span class="badge reward-points">+${escapeHTML(String(ch.pointsReward))} pts</span>
+          <span class="badge difficulty-${window.DOMPurify.sanitize(ch.difficulty)}">${window.DOMPurify.sanitize(ch.difficulty)}</span>
+          <span class="badge reward-points">+${window.DOMPurify.sanitize(String(ch.pointsReward))} pts</span>
         </div>
-        <span class="${actionBtnClass}" onclick="window.triggerChallengeAction('${escapeHTML(ch.id)}')">${actionBtnText}</span>
+        <span class="${actionBtnClass}" onclick="window.triggerChallengeAction('${window.DOMPurify.sanitize(ch.id)}')">${actionBtnText}</span>
       </div>
-      <div class="challenge-title">${escapeHTML(ch.title)}</div>
-      <div class="challenge-desc">${escapeHTML(ch.description)}</div>
+      <div class="challenge-title">${window.DOMPurify.sanitize(ch.title)}</div>
+      <div class="challenge-desc">${window.DOMPurify.sanitize(ch.description)}</div>
       <div class="challenge-progress-bar">
-        <div class="challenge-progress-fill" style="width: ${escapeHTML(String(ch.progress))}%;"></div>
+        <div class="challenge-progress-fill" style="width: ${window.DOMPurify.sanitize(String(ch.progress))}%;"></div>
       </div>
       <div class="challenge-bottom">
-        <span class="card-subtitle">Savings Est: ${escapeHTML(String(ch.co2SavingsEst))}kg CO₂</span>
-        <span class="card-subtitle">${escapeHTML(String(ch.progress))}% completed</span>
+        <span class="card-subtitle">Savings Est: ${window.DOMPurify.sanitize(String(ch.co2SavingsEst))}kg CO₂</span>
+        <span class="card-subtitle">${window.DOMPurify.sanitize(String(ch.progress))}% completed</span>
       </div>
     `;
     fragment.appendChild(item);
@@ -484,8 +483,8 @@ export function renderCoachRecommendation() {
 
   const labelsContainer = document.querySelector('.coach-recommendation-box .rec-meta');
   labelsContainer.innerHTML = `
-    <span class="badge difficulty-${escapeHTML(diff)}">${escapeHTML(diff)}</span>
-    <span class="badge reward-points">+${escapeHTML(String(points))} pts</span>
+    <span class="badge difficulty-${window.DOMPurify.sanitize(diff)}">${window.DOMPurify.sanitize(diff)}</span>
+    <span class="badge reward-points">+${window.DOMPurify.sanitize(String(points))} pts</span>
     <button class="btn btn-small btn-primary" id="btn-apply-rec" onclick="window.applyActiveRecommendation()">Do This</button>
   `;
 }

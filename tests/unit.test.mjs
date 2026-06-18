@@ -1,12 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { escapeHTML, generateId, calculateLevelThreshold, calculateEcoScore } from '../js/utils.js';
+import { generateId, calculateLevelThreshold, calculateEcoScore } from '../js/utils.js';
 
-test('escapeHTML sanitizes harmful tags', (t) => {
-  const input = '<script>alert("XSS")</script>';
-  const expected = '&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;';
-  assert.strictEqual(escapeHTML(input), expected);
-});
+
 
 test('generateId returns a properly prefixed string', (t) => {
   const id = generateId();

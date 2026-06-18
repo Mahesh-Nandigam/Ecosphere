@@ -24,6 +24,7 @@
       <div class="brand">
         <!-- Interactive Animated Inline SVG Logo -->
         <svg class="app-logo" role="img" aria-label="EcoSphere Logo" width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);">
+          <title>EcoSphere Logo</title>
           <!-- Main Sphere Container with Sky Gradient -->
           <circle cx="32" cy="32" r="28" fill="url(#logo-sky-grad)" stroke="url(#logo-border-grad)" stroke-width="2.5" />
           
@@ -112,6 +113,7 @@
         <div class="visualization-container">
           <!-- Interactive SVG Eco-Island -->
                     <svg id="eco-island-svg" viewBox="0 0 800 500" class="eco-svg" role="img" aria-label="Interactive EcoSphere Terrarium" tabindex="0">
+            <title>Interactive EcoSphere Terrarium</title>
             <defs>
               <linearGradient id="sky-gradient-paradise" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#1E88E5"/><stop offset="60%" stop-color="#64B5F6"/><stop offset="100%" stop-color="#B3E5FC"/>
@@ -668,6 +670,8 @@
     </div>
   </div>
 
+  <!-- DOMPurify CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
   <!-- Supabase JS Client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script type="module" src="js/main.js"></script>

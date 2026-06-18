@@ -1,24 +1,4 @@
 /**
- * Safely escapes HTML characters to prevent XSS.
- * @param {string} str - The string to escape.
- * @returns {string} - The safely escaped string.
- */
-export function escapeHTML(str) {
-  if (!str) return '';
-  return String(str).replace(
-    /[&<>'"]/g,
-    (tag) =>
-      ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        "'": '&#39;',
-        '"': '&quot;',
-      })[tag]
-  );
-}
-
-/**
  * Generates a pseudo-random unique identifier.
  * @returns {string} - The generated ID string.
  */
