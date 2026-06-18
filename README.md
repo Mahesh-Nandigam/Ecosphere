@@ -16,8 +16,6 @@
 
   <h3>
     <a href="https://ecosphere-111822887564.asia-south1.run.app">🚀 LIVE DEMO</a>
-    <span> | </span>
-    <a href="https://github.com/Mahesh-Nandigam/Ecosphere">💻 GITHUB REPOSITORY</a>
   </h3>
 </div>
 
