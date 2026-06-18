@@ -1,0 +1,26 @@
+{
+  "name": "challenge-3(prompt_wars)",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "js/main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node --test tests/unit.test.mjs && playwright test",
+    "test:unit": "node --test tests/unit.test.mjs",
+    "test:e2e": "playwright test",
+    "lint": "eslint js/**/*.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.61.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "prettier": "^3.8.4"
+  }
+}

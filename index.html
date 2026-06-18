@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EcoSphere is a premium carbon awareness dashboard that transforms your daily activities into a living digital ecosystem. Track, reduce, and visualize your carbon footprint.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com; img-src 'self' data: https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="no-referrer">
   <title>EcoSphere — Premium Carbon Awareness Dashboard</title>
   <!-- Google Fonts for Outfit (body font fallback) and Playfair Display (heading font fallback) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +23,7 @@
     <header class="app-header">
       <div class="brand">
         <!-- Interactive Animated Inline SVG Logo -->
-        <svg class="app-logo" width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);">
+        <svg class="app-logo" role="img" aria-label="EcoSphere Logo" width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);">
           <!-- Main Sphere Container with Sky Gradient -->
           <circle cx="32" cy="32" r="28" fill="url(#logo-sky-grad)" stroke="url(#logo-border-grad)" stroke-width="2.5" />
           
@@ -107,7 +111,7 @@
         
         <div class="visualization-container">
           <!-- Interactive SVG Eco-Island -->
-                    <svg id="eco-island-svg" viewBox="0 0 800 500" class="eco-svg">
+                    <svg id="eco-island-svg" viewBox="0 0 800 500" class="eco-svg" role="img" aria-label="Interactive EcoSphere Terrarium" tabindex="0">
             <defs>
               <linearGradient id="sky-gradient-paradise" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#1E88E5"/><stop offset="60%" stop-color="#64B5F6"/><stop offset="100%" stop-color="#B3E5FC"/>
@@ -153,10 +157,13 @@
                 <feComposite in="SourceGraphic" in2="blur" operator="over"/>
               </filter>
               <filter id="smog-filter"><feGaussianBlur stdDeviation="10"/></filter>
+              <clipPath id="island-clip">
+                <rect width="800" height="500" rx="18"/>
+              </clipPath>
             </defs>
 
             <rect id="sky-bg" width="800" height="500" fill="url(#sky-gradient-growing)" rx="18"/>
-
+            <g clip-path="url(#island-clip)">
             <g id="stars-group" opacity="0">
               <circle class="star" cx="60" cy="38" r="1.5" fill="#E3F2FD"/>
               <circle class="star" cx="130" cy="55" r="1" fill="#E3F2FD"/>
@@ -423,6 +430,8 @@
               <circle class="act-particle" id="ap5" cx="400" cy="350" r="5" fill="#AB47BC" opacity="0"/>
               <circle class="act-particle" id="ap6" cx="400" cy="350" r="4" fill="#FDD46B" opacity="0"/>
             </g>
+            </g>
+
 
           </svg>
         </div>
@@ -505,12 +514,12 @@
           <h3 class="form-title">Custom Activity Log</h3>
           <div class="form-row">
             <div class="form-group">
-              <label for="custom-activity">Activity Description</label>
-              <input type="text" id="custom-activity" placeholder="e.g. Turn off work PC overnight">
+              <label for="custom-activity" id="label-custom-activity">Activity Description</label>
+              <input type="text" id="custom-activity" aria-labelledby="label-custom-activity" placeholder="e.g. Turn off work PC overnight">
             </div>
             <div class="form-group size-small">
-              <label for="custom-value">Value</label>
-              <input type="number" id="custom-value" value="1" min="0.1" step="0.1">
+              <label for="custom-value" id="label-custom-value">Value</label>
+              <input type="number" id="custom-value" aria-labelledby="label-custom-value" value="1" min="0.1" step="0.1">
             </div>
             <div class="form-group size-small">
               <label for="custom-unit">Unit</label>
@@ -519,16 +528,16 @@
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="custom-co2-avoided">CO₂ Avoided (kg)</label>
-              <input type="number" id="custom-co2-avoided" value="0.5" min="0" step="0.05">
+              <label for="custom-co2-avoided" id="label-custom-co2-avoided">CO₂ Avoided (kg)</label>
+              <input type="number" id="custom-co2-avoided" aria-labelledby="label-custom-co2-avoided" value="0.5" min="0" step="0.05">
             </div>
             <div class="form-group">
-              <label for="custom-co2-produced">CO₂ Produced (kg)</label>
-              <input type="number" id="custom-co2-produced" value="0.0" min="0" step="0.05">
+              <label for="custom-co2-produced" id="label-custom-co2-produced">CO₂ Produced (kg)</label>
+              <input type="number" id="custom-co2-produced" aria-labelledby="label-custom-co2-produced" value="0.0" min="0" step="0.05">
             </div>
             <div class="form-group">
-              <label for="custom-points">Points Earned</label>
-              <input type="number" id="custom-points" value="15" min="0">
+              <label for="custom-points" id="label-custom-points">Points Earned</label>
+              <input type="number" id="custom-points" aria-labelledby="label-custom-points" value="15" min="0">
             </div>
           </div>
           <button class="btn btn-primary btn-block" id="btn-submit-log">Add Activity Log</button>
@@ -597,25 +606,25 @@
   </div>
 
   <!-- Cloud & AI Settings Config Modal -->
-  <div class="modal-overlay" id="config-modal" style="display: none;">
+  <div class="modal-overlay" id="config-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title-config">
     <div class="modal-box">
-      <h3 class="modal-title">System Settings</h3>
+      <h3 class="modal-title" id="modal-title-config">System Settings</h3>
       <p class="modal-subtitle">Connect EcoSphere to your Supabase project and enable dynamic AI coaching with Gemini.</p>
       
       <div class="form-group">
-        <label for="input-sb-url">Supabase Project URL</label>
-        <input type="text" id="input-sb-url" placeholder="https://your-project.supabase.co">
+        <label for="input-sb-url" id="label-sb-url">Supabase Project URL</label>
+        <input type="text" id="input-sb-url" aria-labelledby="label-sb-url" placeholder="https://your-project.supabase.co">
       </div>
       <div class="form-group">
-        <label for="input-sb-key">Supabase Anon Key</label>
-        <input type="password" id="input-sb-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+        <label for="input-sb-key" id="label-sb-key">Supabase Anon Key</label>
+        <input type="password" id="input-sb-key" aria-labelledby="label-sb-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
       </div>
       
       <div style="border-top: 1.5px solid var(--color-border); margin: var(--spacing-sm) 0; padding-top: var(--spacing-sm);">
         <h4 style="font-family: var(--font-heading); font-size: 15px; margin-bottom: var(--spacing-sm);">Gemini AI Coach Settings</h4>
         <div class="form-group">
-          <label for="input-gemini-key">Gemini API Key</label>
-          <input type="password" id="input-gemini-key" placeholder="AIzaSy...">
+          <label for="input-gemini-key" id="label-gemini-key">Gemini API Key</label>
+          <input type="password" id="input-gemini-key" aria-labelledby="label-gemini-key" placeholder="AIzaSy...">
         </div>
       </div>
 
@@ -630,7 +639,7 @@
   </div>
 
   <!-- Authentication Modal (Login / Sign Up) -->
-  <div class="modal-overlay" id="auth-modal" style="display: none;">
+  <div class="modal-overlay" id="auth-modal" style="display: none;" role="dialog" aria-modal="true" aria-label="Authentication Modal">
     <div class="modal-box">
       <div class="auth-tabs">
         <button class="auth-tab-btn active" id="tab-login">Sign In</button>
@@ -639,16 +648,16 @@
       
       <form id="auth-form" onsubmit="event.preventDefault();">
         <div class="form-group id-field" id="name-field-group" style="display: none;">
-          <label for="auth-name">Full Name</label>
-          <input type="text" id="auth-name" placeholder="e.g. Jane Doe">
+          <label for="auth-name" id="label-auth-name">Full Name</label>
+          <input type="text" id="auth-name" aria-labelledby="label-auth-name" placeholder="e.g. Jane Doe">
         </div>
         <div class="form-group">
-          <label for="auth-email">Email Address</label>
-          <input type="email" id="auth-email" placeholder="email@example.com" required>
+          <label for="auth-email" id="label-auth-email">Email Address</label>
+          <input type="email" id="auth-email" aria-labelledby="label-auth-email" placeholder="email@example.com" required>
         </div>
         <div class="form-group">
-          <label for="auth-password">Password</label>
-          <input type="password" id="auth-password" placeholder="••••••••" required>
+          <label for="auth-password" id="label-auth-password">Password</label>
+          <input type="password" id="auth-password" aria-labelledby="label-auth-password" placeholder="••••••••" required>
         </div>
         
         <div class="modal-actions flex-column">
@@ -661,6 +670,6 @@
 
   <!-- Supabase JS Client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
