@@ -6,16 +6,12 @@
   **Nurture Your Digital Garden, Nurture Our Planet.**
   
   <p align="center">
-    An enterprise-grade, AI-powered carbon footprint dashboard that transforms sustainability into an engaging, interactive living ecosystem.
+    An enterprise-grade, AI-powered carbon footprint dashboard that transforms sustainability into an engaging, interactive living ecosystem. 
+    Stop tracking spreadsheets—start growing your personal terrarium by making real-world ecological impact.
   </p>
 
-  [![Submission Score](https://img.shields.io/badge/AI_Submission_Score-100%25-brightgreen.svg)]()
-  [![Playwright Tests](https://img.shields.io/badge/Tests-Passing-success.svg)]()
-  [![Accessibility](https://img.shields.io/badge/A11Y-100%25-blue.svg)]()
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
   <h3>
-    <a href="https://ecosphere-111822887564.asia-south1.run.app">🚀 LIVE DEMO</a>
+    <a href="https://ecosphere-111822887564.asia-south1.run.app">🚀 LAUNCH LIVE DEMO</a>
   </h3>
 </div>
 
