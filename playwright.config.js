@@ -18,7 +18,7 @@ module.exports = defineConfig({
     },
   ],
   webServer: {
-    command: 'python -m http.server 8000',
+    command: 'npx --yes serve . -p 8000',
     url: 'http://127.0.0.1:8000',
     reuseExistingServer: !process.env.CI,
   },
