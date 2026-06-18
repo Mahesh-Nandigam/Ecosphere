@@ -1,0 +1,32 @@
+Colors
+Primary:
+#5DCDF1
+Secondary:
+#FD976D
+Accent:
+#5DCDF1
+Background:
+#FFFFFF
+Text Primary:
+#1B1624
+Link:
+#FDD46B
+Fonts
+Elza(body)
+Recoleta(heading)
+Typography
+primary: Elza
+heading: Recoleta
+h1: 18px
+h2: 42px
+body: 42px
+Spacing
+Base Unit:
+4
+Border Radius:
+18px
+Personality
+Tone: modern
+Energy: medium
+Audience: young professionals and productivity enthusiasts
+

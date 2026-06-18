@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EcoSphere Test Suite</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #111; color: #fff; padding: 2rem; }
+        .pass { color: #4ade80; }
+        .fail { color: #f87171; }
+        .summary { font-size: 1.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <h1>EcoSphere Sanity Tests</h1>
+    <div id="test-results"></div>
+    
+    <!-- Load app dependencies temporarily -->
+    <script>
+      // Mock DOM elements required by app.js functions if they run globally
+      document.body.innerHTML += `<div id="empty-logs-msg"></div><div id="timeline-body"></div>`;
+    </script>
+    <script src="../app.js"></script>
+    <script src="app.test.js"></script>
+</body>
+</html>

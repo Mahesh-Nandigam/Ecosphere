@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoSphere — Premium Carbon Awareness Dashboard</title>
+  <!-- Google Fonts for Outfit (body font fallback) and Playfair Display (heading font fallback) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <!-- Dynamic SVG Favicon & App Icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23E2F5FC' stroke='%235DCDF1' stroke-width='3'%2F%3E%3Cpath d='M32 12 C44 24, 44 38, 32 48 C20 38, 20 24, 32 12 Z' fill='%2366BB6A'%2F%3E%3C%2Fsvg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23E2F5FC' stroke='%235DCDF1' stroke-width='3'%2F%3E%3Cpath d='M32 12 C44 24, 44 38, 32 48 C20 38, 20 24, 32 12 Z' fill='%2366BB6A'%2F%3E%3C%2Fsvg%3E">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Navigation Header -->
+    <header class="app-header">
+      <div class="brand">
+        <!-- Interactive Animated Inline SVG Logo -->
+        <svg class="app-logo" width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);">
+          <!-- Main Sphere Container with Sky Gradient -->
+          <circle cx="32" cy="32" r="28" fill="url(#logo-sky-grad)" stroke="url(#logo-border-grad)" stroke-width="2.5" />
+          
+          <!-- Outer Orbiting Ring representing connectivity -->
+          <circle cx="32" cy="32" r="30" stroke="#5DCDF1" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.6" style="transform-origin: center; animation: spin-clockwise 20s linear infinite;" />
+
+          <!-- Growing Eco-Leaf in the center -->
+          <path d="M32 12 C44 24, 44 38, 32 48 C20 38, 20 24, 32 12 Z" fill="url(#logo-leaf-grad)" filter="url(#logo-glow)" />
+          <path d="M32 12 V48" stroke="#FFFFFF" stroke-width="1.5" opacity="0.6" stroke-linecap="round" />
+          <path d="M32 22 C36 25, 37 28, 37 28" stroke="#FFFFFF" stroke-width="1" opacity="0.5" stroke-linecap="round" />
+          <path d="M32 30 C28 33, 27 36, 27 36" stroke="#FFFFFF" stroke-width="1" opacity="0.5" stroke-linecap="round" />
+
+          <!-- Interactive Glowing Accents -->
+          <circle cx="32" cy="12" r="3" fill="#FDD46B" />
+          <circle cx="32" cy="48" r="2" fill="#5DCDF1" />
+
+          <defs>
+            <!-- Sky Blue to soft light gradient inside logo -->
+            <linearGradient id="logo-sky-grad" x1="32" y1="4" x2="32" y2="60" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#E2F5FC" />
+              <stop offset="100%" stop-color="#FFFFFF" />
+            </linearGradient>
+            
+            <!-- Primary Sky Blue to Secondary Salmon Orange border gradient -->
+            <linearGradient id="logo-border-grad" x1="4" y1="4" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#5DCDF1" />
+              <stop offset="100%" stop-color="#FD976D" />
+            </linearGradient>
+
+            <!-- Leaf Green-Blue to Orange gradient -->
+            <linearGradient id="logo-leaf-grad" x1="32" y1="12" x2="32" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#5DCDF1" />
+              <stop offset="50%" stop-color="#66BB6A" />
+              <stop offset="100%" stop-color="#FD976D" />
+            </linearGradient>
+
+            <filter id="logo-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+        </svg>
+        <div class="brand-text">
+          <h1 class="brand-title">EcoSphere</h1>
+          <p class="brand-tagline">Nurture Your Digital Garden, Nurture Our Planet</p>
+        </div>
+      </div>
+      <div class="header-actions-group">
+        <div class="user-summary-badge">
+          <div class="badge-item">
+            <span class="badge-label">Level</span>
+            <span class="badge-value" id="header-level">2</span>
+          </div>
+          <div class="badge-divider"></div>
+          <div class="badge-item">
+            <span class="badge-label">Eco Score</span>
+            <span class="badge-value highlight" id="header-ecoscore">82</span>
+          </div>
+          <div class="badge-divider"></div>
+          <div class="badge-item">
+            <span class="badge-label">Leaf Points</span>
+            <span class="badge-value secondary" id="header-points">320</span>
+          </div>
+        </div>
+        <div class="auth-status-panel">
+          <button class="btn btn-secondary btn-small" id="btn-show-auth">Sign In</button>
+          <div class="user-logged-badge" id="user-logged-badge" style="display: none;">
+            <span class="user-display-name" id="auth-user-name">Guest</span>
+            <button class="btn-danger-link btn-small" id="btn-sign-out">Sign Out</button>
+          </div>
+          <button class="btn btn-secondary btn-small btn-icon" id="btn-open-config" title="Supabase Settings" aria-label="Open Settings">⚙️</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Layout -->
+    <main class="dashboard-grid">
+      
+      <!-- Left Column: The Living Eco-Island Visualization -->
+      <section class="dashboard-card visualization-card grid-col-2">
+        <div class="card-header">
+          <h2 class="card-title">Your Living Eco-Island</h2>
+          <p class="card-subtitle">Real-time visualization of your environmental footprint. Grow your island by logging positive habits.</p>
+        </div>
+        
+        <div class="visualization-container">
+          <!-- Interactive SVG Eco-Island -->
+                    <svg id="eco-island-svg" viewBox="0 0 800 500" class="eco-svg">
+            <defs>
+              <linearGradient id="sky-gradient-paradise" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#1E88E5"/><stop offset="60%" stop-color="#64B5F6"/><stop offset="100%" stop-color="#B3E5FC"/>
+              </linearGradient>
+              <linearGradient id="sky-gradient-healthy" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#42A5F5"/><stop offset="100%" stop-color="#E1F5FE"/>
+              </linearGradient>
+              <linearGradient id="sky-gradient-growing" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#A9E3F6"/><stop offset="100%" stop-color="#E2F5FC"/>
+              </linearGradient>
+              <linearGradient id="sky-gradient-recovering" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#90A4AE"/><stop offset="100%" stop-color="#CFD8DC"/>
+              </linearGradient>
+              <linearGradient id="sky-gradient-polluted" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#455A64"/><stop offset="100%" stop-color="#78909C"/>
+              </linearGradient>
+              <linearGradient id="ground-gradient-paradise" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#66BB6A"/><stop offset="100%" stop-color="#1B5E20"/>
+              </linearGradient>
+              <linearGradient id="ground-gradient-healthy" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#8CD68A"/><stop offset="100%" stop-color="#388E3C"/>
+              </linearGradient>
+              <linearGradient id="ground-gradient-growing" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#AED581"/><stop offset="100%" stop-color="#7CB342"/>
+              </linearGradient>
+              <linearGradient id="ground-gradient-recovering" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#C5CA8D"/><stop offset="100%" stop-color="#A5A96E"/>
+              </linearGradient>
+              <linearGradient id="ground-gradient-dry" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#D4C59F"/><stop offset="100%" stop-color="#BCA778"/>
+              </linearGradient>
+              <linearGradient id="water-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#55C9EB" stop-opacity="0.8"/><stop offset="100%" stop-color="#3FA6CB" stop-opacity="0.9"/>
+              </linearGradient>
+              <radialGradient id="sun-gradient" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFF3C5"/><stop offset="100%" stop-color="#FDD46B" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="sage-skin-grad" cx="45%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#FFCCBC"/><stop offset="100%" stop-color="#FFAB91"/>
+              </radialGradient>
+              <filter id="logo-glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="2" result="blur"/>
+                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+              </filter>
+              <filter id="smog-filter"><feGaussianBlur stdDeviation="10"/></filter>
+            </defs>
+
+            <rect id="sky-bg" width="800" height="500" fill="url(#sky-gradient-growing)" rx="18"/>
+
+            <g id="stars-group" opacity="0">
+              <circle class="star" cx="60" cy="38" r="1.5" fill="#E3F2FD"/>
+              <circle class="star" cx="130" cy="55" r="1" fill="#E3F2FD"/>
+              <circle class="star" cx="200" cy="28" r="1.5" fill="#B3E5FC"/>
+              <circle class="star" cx="280" cy="52" r="1" fill="#E3F2FD"/>
+              <circle class="star" cx="355" cy="30" r="1.5" fill="#E3F2FD"/>
+              <circle class="star" cx="425" cy="50" r="1" fill="#B3E5FC"/>
+              <circle class="star" cx="505" cy="32" r="1.5" fill="#E3F2FD"/>
+              <circle class="star" cx="578" cy="52" r="1" fill="#E3F2FD"/>
+              <circle class="star" cx="645" cy="30" r="1.5" fill="#B3E5FC"/>
+              <circle class="star" cx="720" cy="46" r="1" fill="#E3F2FD"/>
+            </g>
+
+            <g id="smog-group" opacity="0">
+              <ellipse cx="240" cy="105" rx="230" ry="58" fill="#546E7A" opacity="0.22" filter="url(#smog-filter)"/>
+              <ellipse cx="560" cy="82" rx="210" ry="46" fill="#607D8B" opacity="0.18" filter="url(#smog-filter)"/>
+              <ellipse cx="400" cy="145" rx="360" ry="62" fill="#78909C" opacity="0.14" filter="url(#smog-filter)"/>
+            </g>
+
+            <g id="sun-group">
+              <circle id="sun-glow" cx="685" cy="78" r="120" fill="url(#sun-gradient)"/>
+              <circle id="sun" cx="685" cy="78" r="30" fill="#FDD46B"/>
+              <g id="sun-rays" style="transform-origin:685px 78px; animation:sunRaySpin 22s linear infinite;" opacity="0.6">
+                <line x1="685" y1="36" x2="685" y2="25" stroke="#FDD46B" stroke-width="3" stroke-linecap="round"/>
+                <line x1="719" y1="44" x2="727" y2="36" stroke="#FDD46B" stroke-width="3" stroke-linecap="round"/>
+                <line x1="727" y1="78" x2="738" y2="78" stroke="#FDD46B" stroke-width="3" stroke-linecap="round"/>
+                <line x1="719" y1="112" x2="727" y2="120" stroke="#FDD46B" stroke-width="3" stroke-linecap="round"/>
+                <line x1="651" y1="44" x2="643" y2="36" stroke="#FDD46B" stroke-width="3" stroke-linecap="round"/>
+                <line x1="643" y1="78" x2="632" y2="78" stroke="#FDD46B" stroke-width="3" stroke-linecap="round"/>
+                <line x1="651" y1="112" x2="643" y2="120" stroke="#FDD46B" stroke-width="3" stroke-linecap="round"/>
+                <line x1="685" y1="120" x2="685" y2="131" stroke="#FDD46B" stroke-width="3" stroke-linecap="round"/>
+              </g>
+            </g>
+
+            <g id="rainbow-group" opacity="0">
+              <path d="M 25,430 Q 400,20 775,430" stroke="#FF7043" stroke-width="12" fill="none" stroke-opacity="0.42" stroke-linecap="round"/>
+              <path d="M 45,430 Q 400,55 755,430" stroke="#FFA726" stroke-width="12" fill="none" stroke-opacity="0.42" stroke-linecap="round"/>
+              <path d="M 65,430 Q 400,90 735,430" stroke="#FDD46B" stroke-width="12" fill="none" stroke-opacity="0.42" stroke-linecap="round"/>
+              <path d="M 85,430 Q 400,125 715,430" stroke="#66BB6A" stroke-width="12" fill="none" stroke-opacity="0.42" stroke-linecap="round"/>
+              <path d="M 105,430 Q 400,158 695,430" stroke="#5DCDF1" stroke-width="12" fill="none" stroke-opacity="0.42" stroke-linecap="round"/>
+              <path d="M 125,430 Q 400,185 675,430" stroke="#AB47BC" stroke-width="12" fill="none" stroke-opacity="0.32" stroke-linecap="round"/>
+            </g>
+
+            <g id="cloud-group">
+              <path class="cloud" d="M 50,122 Q 65,102 80,122 Q 95,102 110,122 Q 120,132 110,142 L 50,142 Q 40,132 50,122" fill="#FFFFFF" opacity="0.85"/>
+              <path class="cloud" d="M 300,82 Q 315,62 330,82 Q 345,62 360,82 Q 370,92 360,102 L 300,102 Q 290,92 300,82" fill="#FFFFFF" opacity="0.7"/>
+              <path class="cloud" d="M 520,132 Q 535,112 550,132 Q 565,112 580,132 Q 590,142 580,152 L 520,152 Q 510,142 520,132" fill="#FFFFFF" opacity="0.8"/>
+            </g>
+
+            <g id="birds-group" opacity="0">
+              <g class="flying-bird" style="animation:birdFly1 20s linear infinite;">
+                <path d="M0,0 Q7,-5 14,0 Q21,-5 28,0" stroke="#444" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              </g>
+              <g class="flying-bird" style="animation:birdFly2 16s linear infinite 5s;">
+                <path d="M0,0 Q5,-4 10,0 Q15,-4 20,0" stroke="#555" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+              </g>
+              <g class="flying-bird" style="animation:birdFly3 25s linear infinite 10s;">
+                <path d="M0,0 Q4,-3 8,0 Q12,-3 16,0" stroke="#666" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </g>
+            </g>
+
+            <ellipse cx="400" cy="422" rx="382" ry="82" fill="url(#water-gradient)"/>
+            <g class="water-shimmer-group">
+              <line x1="185" y1="416" x2="218" y2="416" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="338" y1="432" x2="378" y2="432" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.45"/>
+              <line x1="468" y1="419" x2="512" y2="419" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="575" y1="435" x2="612" y2="435" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" opacity="0.4"/>
+            </g>
+
+            <g id="island-group">
+              <path d="M 118,362 C 118,402 682,402 682,362 L 682,392 C 682,432 118,432 118,392 Z" fill="#6D4C41"/>
+              <ellipse id="island-top" cx="400" cy="362" rx="282" ry="52" fill="url(#ground-gradient-growing)"/>
+            </g>
+
+            <g id="features-group">
+              <g id="turbine-group" transform="translate(250,295)">
+                <line x1="0" y1="0" x2="0" y2="-95" stroke="#E0E0E0" stroke-width="5" stroke-linecap="round"/>
+                <circle cx="0" cy="-95" r="6" fill="#FFFFFF"/>
+                <g id="turbine-blades" style="transform-origin:0px -95px;">
+                  <path d="M0,-95 Q10,-116 0,-140" fill="#FFFFFF" opacity="0.9" stroke="#D0D0D0" stroke-width="0.5"/>
+                  <path d="M0,-95 Q23,-82 44,-93" fill="#FFFFFF" opacity="0.9" stroke="#D0D0D0" stroke-width="0.5"/>
+                  <path d="M0,-95 Q-23,-82 -44,-93" fill="#FFFFFF" opacity="0.9" stroke="#D0D0D0" stroke-width="0.5"/>
+                </g>
+              </g>
+
+              <g id="tree-1" class="eco-tree" transform="translate(525,340)">
+                <rect x="-5" y="-38" width="10" height="38" fill="#5C4033" rx="3"/>
+                <circle cx="0" cy="-48" r="22" fill="#2E7D32"/>
+                <circle cx="-9" cy="-56" r="16" fill="#4CAF50"/>
+                <circle cx="11" cy="-52" r="14" fill="#388E3C"/>
+                <circle cx="7" cy="-44" r="3.5" fill="#EF5350" opacity="0.85"/>
+                <circle cx="-3" cy="-40" r="2.5" fill="#FF8A65" opacity="0.75"/>
+              </g>
+              <g id="tree-2" class="eco-tree" transform="translate(483,366)">
+                <rect x="-3" y="-28" width="6" height="28" fill="#5C4033" rx="2"/>
+                <circle cx="0" cy="-34" r="18" fill="#4CAF50"/>
+                <circle cx="7" cy="-41" r="13" fill="#81C784"/>
+              </g>
+              <g id="tree-3" class="eco-tree" transform="translate(558,357)">
+                <rect x="-4" y="-34" width="8" height="34" fill="#5C4033" rx="3"/>
+                <circle cx="0" cy="-42" r="20" fill="#1B5E20"/>
+                <circle cx="-7" cy="-50" r="14" fill="#388E3C"/>
+                <circle cx="8" cy="-46" r="12" fill="#4CAF50"/>
+              </g>
+              <g id="tree-4" class="eco-tree" transform="translate(198,353)">
+                <rect x="-4" y="-34" width="8" height="34" fill="#5C4033" rx="3"/>
+                <circle cx="0" cy="-42" r="22" fill="#4CAF50"/>
+                <circle cx="9" cy="-50" r="16" fill="#81C784"/>
+                <circle cx="-10" cy="-48" r="13" fill="#2E7D32"/>
+              </g>
+              <g id="tree-5" class="eco-tree" transform="translate(444,373)" opacity="0">
+                <rect x="-3" y="-22" width="6" height="22" fill="#6D4C41" rx="2"/>
+                <circle cx="0" cy="-28" r="13" fill="#66BB6A"/>
+                <circle cx="5" cy="-34" r="9" fill="#A5D6A7"/>
+              </g>
+              <g id="tree-6" class="eco-tree" transform="translate(168,370)" opacity="0">
+                <rect x="-3" y="-26" width="6" height="26" fill="#5C4033" rx="2"/>
+                <circle cx="0" cy="-32" r="16" fill="#2E7D32"/>
+                <circle cx="-6" cy="-40" r="11" fill="#4CAF50"/>
+                <circle cx="7" cy="-37" r="10" fill="#66BB6A"/>
+              </g>
+
+              <g id="solar-panel" transform="translate(348,373)">
+                <line x1="0" y1="0" x2="0" y2="-15" stroke="#424242" stroke-width="3"/>
+                <polygon points="-19,-29 19,-29 13,-15 -13,-15" fill="#1565C0" stroke="#BBDEFB" stroke-width="1"/>
+                <line x1="-16" y1="-22" x2="16" y2="-22" stroke="#BBDEFB" stroke-width="0.8"/>
+                <line x1="-7" y1="-22" x2="-7" y2="-15" stroke="#BBDEFB" stroke-width="0.6"/>
+                <line x1="0" y1="-29" x2="0" y2="-15" stroke="#BBDEFB" stroke-width="0.8"/>
+                <line x1="7" y1="-22" x2="7" y2="-15" stroke="#BBDEFB" stroke-width="0.6"/>
+                <circle cx="6" cy="-25" r="2.5" fill="#E3F2FD" opacity="0.75"/>
+              </g>
+              <g id="solar-panel-2" transform="translate(308,379)" opacity="0">
+                <line x1="0" y1="0" x2="0" y2="-12" stroke="#424242" stroke-width="2.5"/>
+                <polygon points="-15,-23 15,-23 10,-12 -10,-12" fill="#1565C0" stroke="#BBDEFB" stroke-width="1"/>
+                <line x1="-12" y1="-18" x2="12" y2="-18" stroke="#BBDEFB" stroke-width="0.7"/>
+                <line x1="0" y1="-23" x2="0" y2="-12" stroke="#BBDEFB" stroke-width="0.7"/>
+              </g>
+
+              <g id="cottage" transform="translate(400,333)">
+                <polygon points="-28,13 28,13 22,-24 -22,-24" fill="#FFF3E0" stroke="#E0E0E0" stroke-width="1"/>
+                <rect x="-7" y="-6" width="14" height="19" fill="#FD976D" rx="2"/>
+                <circle cx="4" cy="4" r="1.5" fill="#FFEB3B"/>
+                <polygon points="-33,-24 33,-24 0,-50" fill="#EF7D50"/>
+                <polygon points="-10,-24 10,-24 0,-38" fill="#E64A19" opacity="0.4"/>
+                <rect x="-17" y="-18" width="10" height="10" fill="#B3E5FC" rx="1.5"/>
+                <line x1="-12" y1="-18" x2="-12" y2="-8" stroke="#FFFFFF" stroke-width="1"/>
+                <line x1="-17" y1="-13" x2="-7" y2="-13" stroke="#FFFFFF" stroke-width="1"/>
+                <rect x="7" y="-18" width="10" height="10" fill="#B3E5FC" rx="1.5"/>
+                <line x1="12" y1="-18" x2="12" y2="-8" stroke="#FFFFFF" stroke-width="1"/>
+                <line x1="7" y1="-13" x2="17" y2="-13" stroke="#FFFFFF" stroke-width="1"/>
+                <rect x="14" y="-46" width="7" height="22" fill="#D7CCC8"/>
+                <g id="chimney-smoke" opacity="0">
+                  <ellipse cx="17" cy="-52" rx="5" ry="6" fill="#90A4AE" opacity="0.7" class="smoke-puff"/>
+                  <ellipse cx="20" cy="-62" rx="4" ry="5" fill="#78909C" opacity="0.5" class="smoke-puff"/>
+                  <ellipse cx="16" cy="-73" rx="3" ry="4" fill="#607D8B" opacity="0.3" class="smoke-puff"/>
+                </g>
+              </g>
+
+              <g id="flowers" class="eco-flower">
+                <circle cx="450" cy="379" r="4.5" fill="#FDD46B"/>
+                <circle cx="447" cy="379" r="2" fill="#FFF"/>
+                <circle cx="453" cy="379" r="2" fill="#FFF"/>
+                <circle cx="450" cy="376" r="2" fill="#FFF"/>
+                <circle cx="450" cy="382" r="2" fill="#FFF"/>
+                <line x1="450" y1="383" x2="450" y2="393" stroke="#66BB6A" stroke-width="1.5"/>
+                <circle cx="310" cy="382" r="4" fill="#FD976D"/>
+                <circle cx="307" cy="382" r="2" fill="#FFF"/>
+                <circle cx="313" cy="382" r="2" fill="#FFF"/>
+                <circle cx="310" cy="379" r="2" fill="#FFF"/>
+                <circle cx="310" cy="385" r="2" fill="#FFF"/>
+                <line x1="310" y1="386" x2="310" y2="396" stroke="#66BB6A" stroke-width="1.5"/>
+                <circle cx="378" cy="385" r="3.5" fill="#EF9A9A"/>
+                <circle cx="375" cy="385" r="1.8" fill="#FFF"/>
+                <circle cx="381" cy="385" r="1.8" fill="#FFF"/>
+                <circle cx="378" cy="382" r="1.8" fill="#FFF"/>
+                <circle cx="378" cy="388" r="1.8" fill="#FFF"/>
+              </g>
+
+              <g id="flowers-extra" opacity="0">
+                <circle cx="232" cy="380" r="4" fill="#CE93D8"/>
+                <circle cx="229" cy="380" r="2" fill="#FFF"/>
+                <circle cx="235" cy="380" r="2" fill="#FFF"/>
+                <circle cx="232" cy="377" r="2" fill="#FFF"/>
+                <circle cx="232" cy="383" r="2" fill="#FFF"/>
+                <circle cx="498" cy="375" r="3.5" fill="#80DEEA"/>
+                <circle cx="495" cy="375" r="1.8" fill="#FFF"/>
+                <circle cx="501" cy="375" r="1.8" fill="#FFF"/>
+                <circle cx="498" cy="372" r="1.8" fill="#FFF"/>
+                <circle cx="498" cy="378" r="1.8" fill="#FFF"/>
+                <circle cx="162" cy="377" r="3" fill="#FFF176"/>
+                <circle cx="159" cy="377" r="1.5" fill="#FFF"/>
+                <circle cx="165" cy="377" r="1.5" fill="#FFF"/>
+                <circle cx="162" cy="374" r="1.5" fill="#FFF"/>
+                <circle cx="162" cy="380" r="1.5" fill="#FFF"/>
+              </g>
+
+              <g id="butterflies-group" opacity="0">
+                <g transform="translate(462,308)">
+                  <g id="butterfly-1">
+                    <ellipse rx="8" ry="5.5" fill="#FDD46B" opacity="0.88" transform="rotate(-35) translate(-7,0)"/>
+                    <ellipse rx="8" ry="5.5" fill="#FDD46B" opacity="0.88" transform="rotate(35) translate(7,0)"/>
+                    <ellipse rx="5.5" ry="3.5" fill="#FFB300" opacity="0.7" transform="rotate(-35) translate(-7,3)"/>
+                    <ellipse rx="5.5" ry="3.5" fill="#FFB300" opacity="0.7" transform="rotate(35) translate(7,3)"/>
+                    <ellipse rx="1" ry="7" fill="#5C4033"/>
+                  </g>
+                </g>
+                <g transform="translate(278,318)">
+                  <g id="butterfly-2">
+                    <ellipse rx="7" ry="4.5" fill="#5DCDF1" opacity="0.85" transform="rotate(-35) translate(-6,0)"/>
+                    <ellipse rx="7" ry="4.5" fill="#5DCDF1" opacity="0.85" transform="rotate(35) translate(6,0)"/>
+                    <ellipse rx="4.5" ry="3" fill="#0097A7" opacity="0.65" transform="rotate(-35) translate(-6,3)"/>
+                    <ellipse rx="4.5" ry="3" fill="#0097A7" opacity="0.65" transform="rotate(35) translate(6,3)"/>
+                    <ellipse rx="1" ry="6" fill="#3E2723"/>
+                  </g>
+                </g>
+              </g>
+
+              <g id="rabbit-group" opacity="0" transform="translate(338,364)">
+                <ellipse cx="0" cy="7" rx="9" ry="7" fill="#FAFAFA"/>
+                <circle cx="0" cy="-3" r="7.5" fill="#FAFAFA"/>
+                <ellipse cx="-5" cy="-14" rx="2.8" ry="7" fill="#FAFAFA"/>
+                <ellipse cx="5" cy="-14" rx="2.8" ry="7" fill="#FAFAFA"/>
+                <ellipse cx="-5" cy="-14" rx="1.2" ry="5" fill="#FFCDD2"/>
+                <ellipse cx="5" cy="-14" rx="1.2" ry="5" fill="#FFCDD2"/>
+                <circle cx="-3" cy="-4" r="1.5" fill="#455A64"/>
+                <circle cx="3" cy="-4" r="1.5" fill="#455A64"/>
+                <circle cx="0" cy="-1" r="1.2" fill="#FF8A80"/>
+                <ellipse cx="-10" cy="8" rx="4" ry="3" fill="#F5F5F5"/>
+              </g>
+
+              <g id="sage-character" transform="translate(587,333)">
+                <ellipse cx="0" cy="24" rx="13" ry="3.5" fill="#000" opacity="0.12"/>
+                <ellipse cx="0" cy="10" rx="12" ry="16" fill="#43A047"/>
+                <path d="M-9,2 Q0,12 9,2" fill="#2E7D32"/>
+                <path d="M-10,9 Q0,19 10,9" fill="#2E7D32"/>
+                <circle cx="0" cy="-10" r="14" fill="url(#sage-skin-grad)"/>
+                <path d="M-12,-22 Q-6,-37 0,-27 Q6,-37 12,-22" fill="#66BB6A" stroke="#4CAF50" stroke-width="0.5"/>
+                <circle cx="-8" cy="-30" r="3.5" fill="#AED581"/>
+                <circle cx="8" cy="-30" r="3.5" fill="#AED581"/>
+                <circle cx="0" cy="-35" r="2.5" fill="#DCEDC8"/>
+                <circle cx="-5" cy="-12" r="2.8" fill="#3E2723"/>
+                <circle cx="5" cy="-12" r="2.8" fill="#3E2723"/>
+                <circle cx="-4" cy="-13.5" r="1" fill="#FFFFFF"/>
+                <circle cx="6" cy="-13.5" r="1" fill="#FFFFFF"/>
+                <path id="sage-mouth" d="M-5,-6 Q0,-3 5,-6" stroke="#A1887F" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                <ellipse cx="-9.5" cy="-9" rx="4" ry="2.5" fill="#FF8A80" opacity="0.4"/>
+                <ellipse cx="9.5" cy="-9" rx="4" ry="2.5" fill="#FF8A80" opacity="0.4"/>
+                <path d="M-12,0 Q-20,-9 -16,-17" stroke="#43A047" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M12,0 Q20,-9 16,-17" stroke="#43A047" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <g id="sage-sparkles" opacity="0">
+                  <circle cx="-24" cy="-22" r="3" fill="#FDD46B" class="sparkle-pulse"/>
+                  <circle cx="24" cy="-28" r="2.5" fill="#FDD46B" class="sparkle-pulse"/>
+                  <circle cx="-20" cy="-38" r="2" fill="#5DCDF1" class="sparkle-pulse"/>
+                  <circle cx="20" cy="-38" r="2" fill="#FD976D" class="sparkle-pulse"/>
+                </g>
+              </g>
+            </g>
+
+            <g id="activity-particles">
+              <circle class="act-particle" id="ap1" cx="400" cy="350" r="5" fill="#FDD46B" opacity="0"/>
+              <circle class="act-particle" id="ap2" cx="400" cy="350" r="4" fill="#66BB6A" opacity="0"/>
+              <circle class="act-particle" id="ap3" cx="400" cy="350" r="6" fill="#5DCDF1" opacity="0"/>
+              <circle class="act-particle" id="ap4" cx="400" cy="350" r="3.5" fill="#FD976D" opacity="0"/>
+              <circle class="act-particle" id="ap5" cx="400" cy="350" r="5" fill="#AB47BC" opacity="0"/>
+              <circle class="act-particle" id="ap6" cx="400" cy="350" r="4" fill="#FDD46B" opacity="0"/>
+            </g>
+
+          </svg>
+        </div>
+
+          <!-- Real-world Carbon Analogy Sticker — sits BELOW the SVG -->
+          <div class="analogy-sticker" id="carbon-analogy">
+            <span class="sticker-emoji">💡</span>
+            <span class="sticker-text" id="analogy-text">Your emissions savings today equal <strong>0</strong> smartphone charges.</span>
+          </div>
+
+        <!-- Metric Quick Overview -->
+        <div class="eco-status-bar">
+          <div class="status-indicator">
+            <span class="indicator-label">CO₂ Target</span>
+            <span class="indicator-val" id="stats-target">14.5 kg</span>
+          </div>
+          <div class="status-progress-track">
+            <div class="status-progress-fill" id="stats-progress-fill" style="width: 88%;"></div>
+          </div>
+          <div class="status-indicator align-right">
+            <span class="indicator-label">Today's CO₂</span>
+            <span class="indicator-val" id="stats-current">12.8 kg</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Interactive AI Coach -->
+      <section class="dashboard-card coach-card">
+        <div class="card-header border-bottom">
+          <div class="coach-profile">
+            <div class="coach-avatar">🌿</div>
+            <div class="coach-meta">
+              <h2 class="card-title">Sage — Eco Coach</h2>
+              <span class="status-pill online">Active AI Companion</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-messages" id="coach-messages" aria-live="polite">
+          <!-- Chat messages dynamically generated by JS -->
+        </div>
+
+        <div class="coach-recommendation-box" id="coach-rec-box">
+          <span class="rec-label">Recommended Next Step:</span>
+          <h4 class="rec-title" id="rec-title">Transition to LED bulbs</h4>
+          <p class="rec-desc" id="rec-desc">Replace 5 halogen bulbs in your living room. Saves approx. 0.15kg CO2 per day.</p>
+          <div class="rec-meta">
+            <span class="badge difficulty-easy">Easy</span>
+            <span class="badge reward-points">+40 pts</span>
+            <button class="btn btn-small btn-primary" id="btn-apply-rec">Do This</button>
+          </div>
+        </div>
+
+        <div class="chat-input-wrapper">
+          <input type="text" class="chat-input" id="chat-input" placeholder="Ask Sage about eco-habits or carbon equivalents..." aria-label="Type your message to Sage" autocomplete="off">
+          <button class="btn btn-primary" id="btn-send-chat">Send</button>
+        </div>
+      </section>
+
+      <!-- Center Column bottom left: Action & Presets Logger -->
+      <section class="dashboard-card logger-card">
+        <div class="card-header">
+          <h2 class="card-title">Log Daily Activity</h2>
+          <p class="card-subtitle">Quick-select eco presets or record custom actions below.</p>
+        </div>
+
+        <div class="category-tabs">
+          <button class="tab-btn active" data-category="transport">🚲 Transport</button>
+          <button class="tab-btn" data-category="food">🥗 Food</button>
+          <button class="tab-btn" data-category="energy">⚡ Energy</button>
+          <button class="tab-btn" data-category="lifestyle">👜 Lifestyle</button>
+        </div>
+
+        <!-- Preset Cards Grid -->
+        <div class="presets-grid" id="presets-container">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <div class="custom-log-form">
+          <h3 class="form-title">Custom Activity Log</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="custom-activity">Activity Description</label>
+              <input type="text" id="custom-activity" placeholder="e.g. Turn off work PC overnight">
+            </div>
+            <div class="form-group size-small">
+              <label for="custom-value">Value</label>
+              <input type="number" id="custom-value" value="1" min="0.1" step="0.1">
+            </div>
+            <div class="form-group size-small">
+              <label for="custom-unit">Unit</label>
+              <span class="unit-display" id="unit-label">count</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="custom-co2-avoided">CO₂ Avoided (kg)</label>
+              <input type="number" id="custom-co2-avoided" value="0.5" min="0" step="0.05">
+            </div>
+            <div class="form-group">
+              <label for="custom-co2-produced">CO₂ Produced (kg)</label>
+              <input type="number" id="custom-co2-produced" value="0.0" min="0" step="0.05">
+            </div>
+            <div class="form-group">
+              <label for="custom-points">Points Earned</label>
+              <input type="number" id="custom-points" value="15" min="0">
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" id="btn-submit-log">Add Activity Log</button>
+        </div>
+      </section>
+
+      <!-- Bottom Right Column: Challenge Board & Leaderboard -->
+      <section class="dashboard-card challenges-card">
+        <div class="card-header">
+          <h2 class="card-title">Eco Challenges</h2>
+          <p class="card-subtitle">Active and available community challenges.</p>
+        </div>
+        <div class="challenges-list" id="challenges-container">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </section>
+
+      <section class="dashboard-card leaderboard-card">
+        <div class="card-header">
+          <h2 class="card-title">Eco Leaderboard</h2>
+          <p class="card-subtitle">Top environmental stewards in your community.</p>
+        </div>
+        <div class="leaderboard-list" id="leaderboard-container">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </section>
+
+      <!-- Bottom Span: Recent Logs Timeline -->
+      <section class="dashboard-card timeline-card grid-span-full">
+        <div class="card-header row-layout">
+          <div>
+            <h2 class="card-title">Activity Feed</h2>
+            <p class="card-subtitle">Your historical carbon-reduction timeline.</p>
+          </div>
+          <button class="btn btn-secondary btn-small" id="btn-clear-logs">Reset Local Data</button>
+        </div>
+        <div class="timeline-container">
+          <table class="timeline-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Category</th>
+                <th>Activity</th>
+                <th>Logged Value</th>
+                <th>CO₂ Avoided</th>
+                <th>CO₂ Produced</th>
+                <th>Points</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="timeline-body">
+              <!-- Populated dynamically by JS -->
+            </tbody>
+          </table>
+          <div class="empty-timeline-msg" id="empty-logs-msg" style="display: none;">
+            No activities logged yet. Start nurturing your island by selecting a preset above!
+          </div>
+        </div>
+      </section>
+
+    </main>
+    
+    <footer class="app-footer-note">
+      <p>EcoSphere Prototype &copy; 2026. Made with 💚. All user actions are simulated and safely mirrored to LocalStorage.</p>
+    </footer>
+  </div>
+
+  <!-- Cloud & AI Settings Config Modal -->
+  <div class="modal-overlay" id="config-modal" style="display: none;">
+    <div class="modal-box">
+      <h3 class="modal-title">System Settings</h3>
+      <p class="modal-subtitle">Connect EcoSphere to your Supabase project and enable dynamic AI coaching with Gemini.</p>
+      
+      <div class="form-group">
+        <label for="input-sb-url">Supabase Project URL</label>
+        <input type="text" id="input-sb-url" placeholder="https://your-project.supabase.co">
+      </div>
+      <div class="form-group">
+        <label for="input-sb-key">Supabase Anon Key</label>
+        <input type="password" id="input-sb-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+      </div>
+      
+      <div style="border-top: 1.5px solid var(--color-border); margin: var(--spacing-sm) 0; padding-top: var(--spacing-sm);">
+        <h4 style="font-family: var(--font-heading); font-size: 15px; margin-bottom: var(--spacing-sm);">Gemini AI Coach Settings</h4>
+        <div class="form-group">
+          <label for="input-gemini-key">Gemini API Key</label>
+          <input type="password" id="input-gemini-key" placeholder="AIzaSy...">
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="btn-close-config">Cancel</button>
+        <button class="btn btn-primary" id="btn-save-config">Save & Connect</button>
+      </div>
+      <div class="modal-footer-note">
+        <button class="btn-danger-link" id="btn-disconnect-db">Disconnect & Local-Only Mode</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authentication Modal (Login / Sign Up) -->
+  <div class="modal-overlay" id="auth-modal" style="display: none;">
+    <div class="modal-box">
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tab-login">Sign In</button>
+        <button class="auth-tab-btn" id="tab-signup">Create Account</button>
+      </div>
+      
+      <form id="auth-form" onsubmit="event.preventDefault();">
+        <div class="form-group id-field" id="name-field-group" style="display: none;">
+          <label for="auth-name">Full Name</label>
+          <input type="text" id="auth-name" placeholder="e.g. Jane Doe">
+        </div>
+        <div class="form-group">
+          <label for="auth-email">Email Address</label>
+          <input type="email" id="auth-email" placeholder="email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="auth-password">Password</label>
+          <input type="password" id="auth-password" placeholder="••••••••" required>
+        </div>
+        
+        <div class="modal-actions flex-column">
+          <button type="submit" class="btn btn-primary btn-block" id="btn-submit-auth">Sign In</button>
+          <button type="button" class="btn btn-secondary btn-block" id="btn-close-auth">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
