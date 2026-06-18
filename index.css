@@ -539,9 +539,10 @@ body {
   border-radius: 50%;
 }
 
-.coach-chat-container {
+.chat-messages {
   flex-grow: 1;
   overflow-y: auto;
+  max-height: 400px;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
