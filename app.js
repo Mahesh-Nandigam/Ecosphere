@@ -1483,6 +1483,13 @@ async function triggerChallengeAction(id) {
 }
 
 async function applyActiveRecommendation() {
+  const btn = document.getElementById("btn-apply-rec");
+  if (btn) {
+    btn.innerHTML = "Done! ✅";
+    btn.style.backgroundColor = "#28a745"; // Green success color
+    btn.disabled = true;
+  }
+
   const rec = dynamicRecommendation || COACH_RECS[state.activeRecIndex];
   if (!rec) return;
   
@@ -1491,13 +1498,14 @@ async function applyActiveRecommendation() {
   
   await logActivity(rec.title, 1, "count", co2Savings, 0, pointsReward);
   
-  if (dynamicRecommendation) {
-    dynamicRecommendation = null; // Clear dynamic recommendation after it is applied
-  } else {
-    state.activeRecIndex = (state.activeRecIndex + 1) % COACH_RECS.length;
-  }
-  
-  renderCoachRecommendation();
+  setTimeout(() => {
+    if (dynamicRecommendation) {
+      dynamicRecommendation = null;
+    } else {
+      state.activeRecIndex = (state.activeRecIndex + 1) % COACH_RECS.length;
+    }
+    renderCoachRecommendation();
+  }, 800); // Wait 800ms to show the checkmark
 }
 
 function resetToDefaults() {

@@ -1011,6 +1011,7 @@ body {
   border-radius: var(--border-radius-sm);
   border: none;
   cursor: pointer;
+  padding: 10px 24px;
   transition: var(--transition-smooth);
   outline: none;
 }
