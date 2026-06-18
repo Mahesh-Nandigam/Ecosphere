@@ -1719,7 +1719,7 @@ Instructions:
     } catch (err) {
       console.error("Gemini API error:", err);
       typingMsg.remove();
-      addCoachMessage("Oops! I had trouble connecting to my AI brain (" + err.message + "). Here is a quick tip in local mode:\n\n" + getLocalCoachResponse(q));
+      addCoachMessage("My AI brain is experiencing high traffic right now! But don't worry, here is a quick tip:\n\n" + getLocalCoachResponse(q));
     }
   } else {
     // Normal Local mode fallback with instructions to activate AI
