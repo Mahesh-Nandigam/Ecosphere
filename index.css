@@ -623,9 +623,14 @@ body {
 
 .rec-meta {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: var(--spacing-sm);
   align-items: center;
   margin-top: var(--spacing-xs);
+}
+
+.rec-meta button {
+  margin-left: auto;
 }
 
 .chat-input-wrapper {

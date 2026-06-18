@@ -607,7 +607,7 @@ async function initApp() {
   // Add coach greeting if first time or empty chat
   const chatMessages = document.getElementById("coach-messages");
   if (chatMessages.children.length === 0) {
-    addCoachMessage("Hello! I'm Sage, your AI Eco-Coach. 🌿 I'm here to support you on your sustainability journey without any shame or guilt! We will nurture this beautiful eco-island together. You can log actions to earn points, complete challenges, and see your island bloom! Try logging a preset below or chat with me.");
+    addCoachMessage("Hi, I'm Sage, your AI Eco-Coach! 🌿 Let's nurture your island together. Log actions, complete challenges, or ask me for eco tips!");
   }
 }
 
